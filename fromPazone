@@ -1,0 +1,49 @@
+
+n = 21
+
+
+def my_way(m):
+    y = []
+    first_step(m, y)
+    killing_fives(y)
+
+
+def first_step(m, y):
+    rest = m % 5
+    for i in range(m // 5):
+        y += [5]
+    if rest % 2 == 0:
+        y += [2] * (rest // 2)
+    elif rest == 3:
+        y += [3]
+    else:
+        y.remove(5)
+        y += [3] * 2
+    y.sort()
+    print(y)
+
+
+def killing_fives(y):
+    for i in range(y.count(5)):
+        y.remove(5)
+        y += [3] + [2]
+        if y.count(2) == 3:
+            for j in range(3):
+                y.remove(2)
+            y += [3] * 2
+        y.sort()
+        print(y)
+        killing_threes(y)
+
+
+def killing_threes(y):
+    if y.count(3) >= 2:
+        for j in range(y.count(3) // 2):
+            y.remove(3)
+            y.remove(3)
+            y += [2] * 3
+            y.sort()
+            print(y)
+
+
+my_way(n)
